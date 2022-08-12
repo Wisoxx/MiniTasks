@@ -29,8 +29,9 @@ def word_to_number(text: str) -> int:
     return int(1e6 * millions + 1e3 * thousands + 100 * hundreds + tens)
 
 
-print("one", word_to_number("one"))
-print("twelve", word_to_number("twelve"))
-print("two hundred forty six", word_to_number("two hundred forty six"))
-print("seven hundred eighty three thousand nine hundred twelve", word_to_number("seven hundred eighty three thousand nine hundred twelve"))
-print("five hundreds fifty three thousands nineteen", word_to_number("five hundreds fifty three thousands nineteen"))
+if __name__ == "__main__":
+    print("one", word_to_number("one"))
+    print("twelve", word_to_number("twelve"))
+    print("two hundred forty six", word_to_number("two hundred forty six"))
+    print("seven hundred eighty three thousand nine hundred twelve", word_to_number("seven hundred eighty three thousand nine hundred twelve"))
+    print("five hundreds fifty three thousands nineteen", word_to_number("five hundreds fifty three thousands nineteen"))

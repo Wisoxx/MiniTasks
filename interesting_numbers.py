@@ -50,18 +50,19 @@ def is_interesting(mile, awesome_phrases):
     return 0
 
 
-# "boring numbers"
-print("is_interesting(3, [1337, 256]), 0, ", is_interesting(3, [1337, 256]))  # 0
-print("is_interesting(3236, [1337, 256]), 0,", is_interesting(3236, [1337, 256]))  # 0
+if __name__ == "__main__":
+    # "boring numbers"
+    print("is_interesting(3, [1337, 256]), 0, ", is_interesting(3, [1337, 256]))  # 0
+    print("is_interesting(3236, [1337, 256]), 0,", is_interesting(3236, [1337, 256]))  # 0
 
-# approaching to an "interesting" number
-print("is_interesting(11207, []), 0,", is_interesting(11207, []))  # 0
-print("is_interesting(11208, []), 0,", is_interesting(11208, []))  # 0
-print("is_interesting(11209, []), 1,", is_interesting(11209, []))  # 1
-print("is_interesting(11210, []), 1,", is_interesting(11210, []))  # 1
-print("is_interesting(11211, []), 2,", is_interesting(11211, []))  # 2
+    # approaching to an "interesting" number
+    print("is_interesting(11207, []), 0,", is_interesting(11207, []))  # 0
+    print("is_interesting(11208, []), 0,", is_interesting(11208, []))  # 0
+    print("is_interesting(11209, []), 1,", is_interesting(11209, []))  # 1
+    print("is_interesting(11210, []), 1,", is_interesting(11210, []))  # 1
+    print("is_interesting(11211, []), 2,", is_interesting(11211, []))  # 2
 
-# approaching to awesome_phrases
-print("is_interesting(1335, [1337, 256]), 1", is_interesting(1335, [1337, 256]))  # 1
-print("is_interesting(1336, [1337, 256]), 1", is_interesting(1336, [1337, 256]))  # 1
-print("is_interesting(1337, [1337, 256]), 2", is_interesting(1337, [1337, 256]))  # 2
+    # approaching to awesome_phrases
+    print("is_interesting(1335, [1337, 256]), 1", is_interesting(1335, [1337, 256]))  # 1
+    print("is_interesting(1336, [1337, 256]), 1", is_interesting(1336, [1337, 256]))  # 1
+    print("is_interesting(1337, [1337, 256]), 2", is_interesting(1337, [1337, 256]))  # 2
