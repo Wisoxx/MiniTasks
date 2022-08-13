@@ -14,6 +14,13 @@ def parse_molecule(formula: str, multiplier=1) -> dict:
              'Pr', 'Nd', 'Pm', 'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho', 'Er', 'Tm', 'Yb', 'Lu', 'Th', 'Pa', 'U', 'Np', 'Pu',
              'Am', 'Cm', 'Bk', 'Cf', 'Es', 'Fm', 'Md', 'No', 'Lr']
 
+    def check_and_add(atom, value=1):
+        nonlocal result, multiplier
+        if atom in result:
+            result[atom] += value * multiplier
+        else:
+            result.setdefault(atom, value * multiplier)
+
     def parse_number(return_=False):
         nonlocal i, next
 
@@ -29,7 +36,7 @@ def parse_molecule(formula: str, multiplier=1) -> dict:
 
         if not return_:
             # adding the value to the dict
-            result.setdefault(symbol, int(number) * multiplier)
+            check_and_add(symbol, int(number))
         else:
             return int(number)
 
@@ -44,16 +51,14 @@ def parse_molecule(formula: str, multiplier=1) -> dict:
                 if i < len(formula) - 2:
                     next = formula[i + 2]
                     new_multiplier = parse_number(return_=True)
+                    i += 1
                 break
             new_formula += character
             i += 1
 
         # making recursion and adding coefficients to the main result
-        for atom, coefficient in parse_molecule(new_formula, multiplier * new_multiplier).items():
-            if atom in result:
-                result[atom] += coefficient
-            else:
-                result.setdefault(atom, coefficient)
+        for atom, coefficient in parse_molecule(new_formula, new_multiplier).items():
+            check_and_add(atom, coefficient)
 
     result = {}
 
@@ -72,7 +77,7 @@ def parse_molecule(formula: str, multiplier=1) -> dict:
 
                 if next.isalpha():
                     if next.isupper():
-                        result.setdefault(symbol, 1 * multiplier)
+                        check_and_add(symbol)
                     elif next.islower():
                         symbol += next
                         i += 1
@@ -82,19 +87,19 @@ def parse_molecule(formula: str, multiplier=1) -> dict:
                             if next.isnumeric():
                                 parse_number()
                             elif next.isalpha() or next in "([{":
-                                result.setdefault(symbol, 1 * multiplier)
+                                check_and_add(symbol)
                         else:  # the last number
-                            result.setdefault(symbol, 1 * multiplier)
+                            check_and_add(symbol)
 
                 elif next.isnumeric():
                     parse_number()
                 elif next in "([{":
-                    result.setdefault(symbol, 1 * multiplier)
+                    check_and_add(symbol)
                     i += 1
                     parse_bracket(next)
             # the last symbol
             else:
-                result.setdefault(symbol, 1 * multiplier)
+                check_and_add(symbol)
                 break
         i += 1
 
@@ -102,7 +107,7 @@ def parse_molecule(formula: str, multiplier=1) -> dict:
 
 
 if __name__ == "__main__":
-    print("H2O:", parse_molecule("H2O"))
+    print("K4[ON(SO3)2N5(OH)3]2", parse_molecule("K4[ON(SO3)2N5(OH)3]2"))
     print("Mg(OH)2:", parse_molecule("Mg(OH)2"))
     print("K4[ON(SO3)2]2: ", parse_molecule("K4[ON(SO3)2]2"))
     print("Ca2[SO4]2Mg3(HO)2: ", parse_molecule("Ca2[SO4]2Mg3(HO)2"))
